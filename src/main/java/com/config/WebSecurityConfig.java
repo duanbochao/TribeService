@@ -56,14 +56,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/");
+        web.ignoring().antMatchers("/blogimg/**","/index.html","/static/**","/upload");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/admin/category/all").authenticated()
-                .antMatchers("/admin/**","/reg").hasRole("admin")
+                .antMatchers("/admin/**","/reg").hasRole("超级管理员")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginProcessingUrl("/login").loginPage("/login")
