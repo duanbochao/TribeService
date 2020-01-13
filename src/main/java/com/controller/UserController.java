@@ -3,9 +3,13 @@ package com.controller;
 import com.service.UserService;
 import com.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author duanbochao
@@ -23,5 +27,14 @@ public class UserController {
         return UserUtils.getCurrentUser().getNickname();
     }
 
-
+    @RequestMapping("/isAdmin")
+    public Boolean isAdmin(){
+        List<GrantedAuthority> authorities = UserUtils.getCurrentUser().getAuthorities();
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("超级管理员")){
+                return true;
+            }
+        }
+            return false;
+    }
 }

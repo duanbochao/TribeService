@@ -253,3 +253,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 >创建Mapper
 
 **Mapper中的内容和service中的接口保持一致就行了**
+
+
+>判断用户是否具有超级管理员的功能
+````
+    //UserController中
+  @RequestMapping("/isAdmin")
+    public Boolean isAdmin(){
+        List<GrantedAuthority> authorities = UserUtils.getCurrentUser().getAuthorities();
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().contains("超级管理员")){
+                return true;
+            }
+        }
+            return false;
+    } //前端通过v-if来判断是否要显示相应的组件
+  ````
+ 
