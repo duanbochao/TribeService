@@ -1,10 +1,12 @@
 package com.service;
 
+import com.bean.Article;
 import com.bean.Category;
 import com.mapper.CategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -20,5 +22,15 @@ public class CategoryService {
 
     public List<Category> getAllCategories(){
         return categoryMapper.getAllCategories();
+    }
+
+    public Integer addNewCateGory(Category category){
+        category.setDate(new Timestamp(System.currentTimeMillis()));
+        return categoryMapper.addNewCateGory(category);
+    }
+
+
+    public Integer updateCateCoryById(Category category){
+        return categoryMapper.updateCateCoryById(category);
     }
 }

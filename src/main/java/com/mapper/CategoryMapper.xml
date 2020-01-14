@@ -7,6 +7,14 @@
     <select id="getAllCategories" resultType="com.bean.Category">
         select * from category;
     </select>
+
+    <insert id="addNewCateGory" parameterType="com.bean.Category">
+        insert into category set date =#{date},cateName=#{cateName};
+    </insert>
+
+    <update id="updateCateCoryById" parameterType="com.bean.Category">
+        update category set cateName=#{cateName} where id=#{id }
+    </update>
 </mapper>
     
     

@@ -8,15 +8,15 @@ import java.sql.Timestamp;
  * @date 2020/1/8 14:54
  */
 public class Category {
-    private Long id;
+    private Integer id;
     private String cateName;
     private Timestamp date;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

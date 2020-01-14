@@ -12,4 +12,8 @@ import java.util.List;
 public interface CategoryMapper {
 
     List<Category> getAllCategories();
+
+    Integer addNewCateGory(Category category);
+
+    Integer updateCateCoryById(Category category);
 }
