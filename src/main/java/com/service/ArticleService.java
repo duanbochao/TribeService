@@ -72,4 +72,38 @@ public class ArticleService {
         int i = tagsMapper.addNewTags(tagIds, aid);
         return i;
     }
+
+    //获取该用户的数据条数
+    public Integer getArticleCountByState(Integer state,Integer uid,String keyworlds){
+        return articleMapper.getArticleCountByState(state, uid, keyworlds);
+    }
+
+    //获取分页数据
+
+    public List<Article> getArticleByState(Integer state, Integer page, Integer count,String keywords) {
+       Integer start= (page-1)*count;
+        Integer uid = UserUtils.getCurrentUser().getId();
+        return articleMapper.getArticleByState(state, uid, keywords, count, start);
+    }
+
+
+    /**
+     * 获取七天日期
+     * @param uid
+     * @return
+     */
+    public   List<String> getCategories(){
+        return articleMapper.getCategories(UserUtils.getCurrentUser().getId());
+    }
+
+    /**
+     * 获取七天数据
+     * @param uid
+     * @return
+     */
+   public List<Integer> getDataStatistics(){
+       return articleMapper.getDataStatistics(UserUtils.getCurrentUser().getId());
+   }
+
+
 }

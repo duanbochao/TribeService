@@ -3,6 +3,7 @@ package com.controller;
 import com.bean.Article;
 import com.bean.RespBean;
 import com.service.ArticleService;
+import com.utils.UserUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author duanbochao
@@ -83,5 +83,38 @@ public class ArticleController {
 
         return new RespBean("error","上传失败"); //上传成功后返回图片地址
     }
+
+    /**
+     * 分页查询
+     * page
+     * count
+     * keyworlds
+     * state
+     */
+    @RequestMapping("/all")
+    public Map<String, Object> getArticleByState(Integer state, Integer count, Integer page, String keyworlds){
+        Integer totalCount = articleService.getArticleCountByState(state, UserUtils.getCurrentUser().getId(), keyworlds);
+        List<Article> articleList = articleService.getArticleByState(state, page, count, keyworlds);
+        Map<String, Object> map = new HashMap<>();
+        map.put("totalCount" ,totalCount);
+        map.put("articleList" ,articleList);
+        return map;
+    }
+
+
+    /**
+     * 统计数据
+     * @return
+     */
+    @RequestMapping("/dataStatistics")
+    public Map<String,Object> dataStatistics(){
+        HashMap<String, Object> map = new HashMap<>();
+        List<String> categories = articleService.getCategories();
+        List<Integer> dataStatistics = articleService.getDataStatistics();
+        map.put("categories",categories);
+        map.put("ds",dataStatistics);
+        return map;
+    }
+
 
 }

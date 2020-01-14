@@ -2,6 +2,8 @@ package com.mapper;
 
 import com.bean.Article;
 
+import java.util.List;
+
 /**
  * @author duanbochao
  * @version 1.0
@@ -10,4 +12,14 @@ import com.bean.Article;
 public interface ArticleMapper {
 
     public Integer addNewArticle(Article article);
+
+    Integer getArticleCountByState(Integer state,Integer uid,String keyworlds);
+
+    List<Article> getArticleByState(Integer state,Integer uid,String keyworlds,Integer count,Integer start);
+
+    List<String> getCategories(Integer uid);
+
+    List<Integer> getDataStatistics(Integer uid);
+
+
 }

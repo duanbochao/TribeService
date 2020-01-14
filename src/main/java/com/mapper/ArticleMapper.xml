@@ -6,6 +6,51 @@
     <insert id="addNewArticle" parameterType="com.bean.Article" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO article SET title=#{title},mdContent=#{mdContent},htmlContent=#{htmlContent},summary=#{summary},cid=#{cid},uid=#{uid},publishDate=#{publishDate},state=#{state},editTime=#{editTime}
     </insert>
+
+    <select id="getArticleCountByState" resultType="Integer">
+        select count(*) from articlekeyworlds
+        <where>
+            <if test="state!=-1">
+            and state =#{state}
+           </if>
+            <if test="uid!=null">
+            and uid =#{uid}
+        </if>
+            <if test="keyworlds!=null">
+            and title like concat('%',#{keyworlds},'%')
+        </if>
+        </where>
+    </select>
+
+
+
+
+    <select id="getArticleByState" resultType="com.bean.Article">
+        SELECT a.id,a.`title`,a.`editTime`,a.`pageView`,a.`state`,u.`nickname`,c.`cateName`,a.uid FROM article a,user
+        u,category c WHERE a.`cid`=c.`id` AND a.`uid`=u.`id`
+        <if test="state!=-2">
+            and a.uid=#{uid}
+        </if>
+        <if test="state!=-1 and state!=-2">
+            and a.state=#{state}
+        </if>
+        <if test="state==-2">
+            and a.state=1
+        </if>
+        <if test="keywords!=null">
+            AND title LIKE concat('%',#{keywords},'%')
+        </if>
+        ORDER BY a.editTime DESC limit #{start},#{count};
+    </select>
+
+
+    <select id="getCategories" resultType="String" parameterType="Integer">
+        SELECT countDate from pv WHERE uid=#{uid} ORDER by countDate limit 7
+    </select>
+
+    <select parameterType="Integer" id="getDataStatistics" resultType="int">
+        SELECT pv from pv WHERE uid=#{uid} ORDER by countDate limit 7
+    </select>
 </mapper>
     
     
