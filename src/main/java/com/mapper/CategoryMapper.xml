@@ -15,6 +15,13 @@
     <update id="updateCateCoryById" parameterType="com.bean.Category">
         update category set cateName=#{cateName} where id=#{id }
     </update>
+
+    <delete id="deleteCateGory">
+        delete  from category where id in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>
     
     

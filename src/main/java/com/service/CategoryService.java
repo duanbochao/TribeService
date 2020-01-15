@@ -33,4 +33,14 @@ public class CategoryService {
     public Integer updateCateCoryById(Category category){
         return categoryMapper.updateCateCoryById(category);
     }
+
+    /**
+     * 删除分类
+     * @param ids
+     * @return
+     */
+    public Integer deleteCateGory(String ids){
+        String[] split = ids.split(",");
+        return categoryMapper.deleteCateGory(split);
+    }
 }

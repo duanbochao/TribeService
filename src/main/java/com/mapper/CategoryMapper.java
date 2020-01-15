@@ -1,6 +1,7 @@
 package com.mapper;
 
 import com.bean.Category;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface CategoryMapper {
     Integer addNewCateGory(Category category);
 
     Integer updateCateCoryById(Category category);
+
+    Integer deleteCateGory(@Param("ids") String[] ids);
 }

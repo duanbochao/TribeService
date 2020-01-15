@@ -40,12 +40,22 @@ public class CategoryController {
 
 
     @RequestMapping("/updateCateCoryById")
-    public RespBean updateCateCoryById(Category category){
+    public RespBean updateCateGoryById(Category category){
         Integer integer = categoryService.updateCateCoryById(category);
         if (integer>0){
             return new RespBean("success","更新成功！");
         }
         return new RespBean("error","更新失败！");
+    }
+
+
+    @RequestMapping("/deleteCateGory")
+    public RespBean deleteCateGory(String ids){
+        Integer integer = categoryService.deleteCateGory(ids);
+        if (integer>0){
+            return new RespBean("success","删除成功!");
+        }
+        return new RespBean("error","删除失败!");
     }
 
 }
