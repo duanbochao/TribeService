@@ -38,4 +38,13 @@ public class UserService implements UserDetailsService {
 
         return user;
     }
+
+
+    public List<User> getUserByNickname(String nickName){
+        return userMapper.getUserByNickname(nickName);
+    }
+
+    public List<Role> getAllRole(){
+        return userMapper.getAllRole();
+    }
 }

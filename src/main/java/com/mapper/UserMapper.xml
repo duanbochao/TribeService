@@ -4,12 +4,46 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.UserMapper">
 
-<select id="loadUserByUsername" resultType="com.bean.User">
-    select * from user where username=#{username}
-</select>
+        <select id="loadUserByUsername" resultType="com.bean.User">
+            select * from user where username=#{username}
+        </select>
 
-</mapper>
+    <select id="getUserByNickname" parameterType="String" resultMap="BaseResultMap">
+        select u.*,r.`name` as rname,r.`id`  as rid from user u, roles r,roles_user ru
+        where ru.uid=u.id and ru.rid=r.id
+          and u.id not in(select u.id from user u,roles_user ru where ru.rid=1 and u.id=ru.uid)
+      <choose>
+          <when test="nickName!=null and nickName!=''">
+            and u.nickName like concat('%',#{nickName},'%') order  by u.id
+          </when>
+          <otherwise>
+            order  by u.id limit 20
+          </otherwise>
+
+      </choose>
+    </select>
+
     
+    <resultMap id="BaseResultMap" type="com.bean.User">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="nickname" property="nickname"></result>
+        <result column="email" property="email"></result>
+        <result column="enabled" property="enabled"></result>
+        <result column="regTime" property="regTime"></result>
+   
+        <collection property="roles" ofType="com.bean.Role">
+            <id column="rid" property="id"></id>
+            <result column="rname" property="name"></result>
+        </collection>
+    </resultMap>
+
+
+    <select id="getAllRole" resultType="com.bean.Role">
+        select * from roles
+    </select>
+</mapper>
+
     
     
     
