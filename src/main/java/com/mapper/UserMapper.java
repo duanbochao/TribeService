@@ -18,4 +18,8 @@ public interface UserMapper {
    List<User> getUserByNickname(String nickName);
 
     List<Role> getAllRole();
+
+    Integer updatUserEnabled(Boolean enabled,Integer uid);
+
+    Integer deleteUserByUid(Integer uid);
 }

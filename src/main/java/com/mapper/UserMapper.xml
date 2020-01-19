@@ -42,6 +42,15 @@
     <select id="getAllRole" resultType="com.bean.Role">
         select * from roles
     </select>
+
+
+    <update id="updatUserEnabled">
+        update user set enabled=#{enabled} where id=#{uid}
+    </update>
+
+    <delete id="deleteUserByUid">
+      delete from user where id=#{uid}
+    </delete>
 </mapper>
 
     

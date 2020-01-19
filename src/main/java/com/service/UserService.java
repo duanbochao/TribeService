@@ -47,4 +47,12 @@ public class UserService implements UserDetailsService {
     public List<Role> getAllRole(){
         return userMapper.getAllRole();
     }
+
+    public Integer updatUserEnabled(Boolean enabled,Integer uid) {
+        return userMapper.updatUserEnabled(enabled, uid);
+    }
+
+        public Integer deleteUserByUid(Integer uid) {
+            return userMapper.deleteUserByUid(uid);
+        }
 }

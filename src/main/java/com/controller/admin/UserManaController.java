@@ -1,5 +1,6 @@
 package com.controller.admin;
 
+import com.bean.RespBean;
 import com.bean.Role;
 import com.bean.User;
 import com.service.UserService;
@@ -33,4 +34,22 @@ public class UserManaController {
     }
 
 
+    @RequestMapping("/user/enabled")
+    public RespBean updatUserEnabled(Boolean enabled,Integer uid){
+        Integer integer = userService.updatUserEnabled(enabled, uid);
+        if (integer>0){
+            return new RespBean("success","更新成功");
+        }
+        return new RespBean("error","更新失败");
+    }
+
+
+    @RequestMapping("/user/delete")
+    public RespBean deleteUserByUid(Integer uid){
+        Integer integer = userService.deleteUserByUid(uid);
+        if (integer>0){
+            return new RespBean("success","删除成功");
+        }
+        return new RespBean("error","删除失败");
+    }
 }
